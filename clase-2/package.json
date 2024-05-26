@@ -1,0 +1,21 @@
+{
+  "name": "clase-2",
+  "version": "1.0.0",
+  "main": "1.http.js",
+  "scripts": {
+    "dev": "node --watch 3.express.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "standard": "17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  },
+  "dependencies": {
+    "express": "4.19.2"
+  }
+}
