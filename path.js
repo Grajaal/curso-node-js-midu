@@ -12,4 +12,4 @@ const file = path.basename(filePath, '.txt') // <----- Para obtener el nombre de
 console.log(file)
 
 const extension = path.extname('image.png') // <----- Para obtener la extensión del archivo
-console.log(extension) 
+console.log(extension)
