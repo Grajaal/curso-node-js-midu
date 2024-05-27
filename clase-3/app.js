@@ -1,7 +1,7 @@
 const express = require('express') // require ---> commonJS
 const crypto = require('node:crypto')
 const movies = require('./movies.json')
-const { validateMovie } = require('./schemas/movies')
+const { validateMovie, validatePartialMovie } = require('./schemas/movies')
 
 const app = express()
 app.disable('x-powered-by')
@@ -47,12 +47,27 @@ app.post('/movies', (req, res) => {
 })
 
 app.patch('/movies/:id', (req, res) => {
+  const result = validatePartialMovie(req.body)
+
+  if (!result.success) {
+    return res.status(400).json({ error: JSON.parse(result.data.message) })
+  }
+
   const { id } = req.params
-  const movieIndex = movies.find(movie => movie.id === id)
+  const movieIndex = movies.findIndex(movie => movie.id === id)
 
-  if (movieIndex === -1) return res.status(404).json({ messaje: 'Movie not found' })
+  if (movieIndex === -1) {
+    return res.status(404).json({ messaje: 'Movie not found' })
+  }
 
-  if (title) movie.title
+  const updatedMovie = {
+    ...movies[movieIndex],
+    ...result.data
+  }
+
+  movies[movieIndex] = updatedMovie
+
+  return res.json(updatedMovie)
 })
 
 const PORT = process.env.PORT ?? 1234
